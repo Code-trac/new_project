@@ -6,23 +6,29 @@ export default function Home() {
         Welcome to SkillSwap Connect
       </h1>
       <p className="text-lg text-muted-foreground mb-8 text-center">
-        SkillSwap Connect is a platform designed to connect students and
-        teachers, fostering a collaborative environment for free knowledge
-        sharing. Whether you're a student looking to expand your skills or a
-        teacher eager to share your expertise, you've found the right place.
+        SkillSwap Connect is a vibrant platform designed to bridge the gap
+        between students eager to learn and teachers passionate about sharing
+        their knowledge. We foster a collaborative environment where free
+        knowledge sharing is not just a concept but a reality. Whether you're a
+        student looking to expand your skills, a teacher eager to share your
+        expertise, or simply someone with a passion for learning, you've found
+        the right place.
       </p>
       <div className="flex space-x-4">
         <img
           src="https://picsum.photos/400/200"
           alt="Learn"
-          className="rounded-md shadow-sm"
+          className="rounded-md shadow-sm object-cover"
+          style={{ width: '400px', height: '200px' }}
         />
         <img
           src="https://picsum.photos/400/200"
           alt="Share"
-          className="rounded-md shadow-sm"
+          className="rounded-md shadow-sm object-cover"
+          style={{ width: '400px', height: '200px' }}
         />
       </div>
     </div>
   );
 }
+
