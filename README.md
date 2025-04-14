@@ -1,5 +1,1 @@
-# Firebase Studio
-
-This is a NextJS starter in Firebase Studio.
-
-To get started, take a look at src/app/page.tsx.
+This is a skill swap project, focussed on providing skilled teachers to students looking to gain new experiences
