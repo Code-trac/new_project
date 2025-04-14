@@ -12,9 +12,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const [role, setRole] = useState("");
+  const router = useRouter();
+
+  const handleLogin = () => {
+    // Implement your login logic here
+    // For now, just navigate to the dashboard
+    router.push('/dashboard');
+  };
 
   return (
     <div className="flex items-center justify-center h-screen bg-background">
@@ -50,9 +58,11 @@ export default function LoginPage() {
               </SelectContent>
             </Select>
           </div>
-          <Button>Log In</Button>
+          <Button onClick={handleLogin}>Log In</Button>
         </CardContent>
       </Card>
     </div>
   );
 }
+
+    
