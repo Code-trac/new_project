@@ -21,17 +21,17 @@ export default function SearchPage() {
 
   const subjects = ["Math", "Science", "English", "History", "Computer Science"];
 
-  const handleSearch = () => {
-    const mockTeachers = [
-      { id: 1, name: "John Doe", subject: "Math" },
-      { id: 2, name: "Jane Smith", subject: "Science" },
-      { id: 3, name: "Alice Johnson", subject: "English" },
-      { id: 4, name: "Bob Williams", subject: "History" },
-      { id: 5, name: "Charlie Brown", subject: "Computer Science" },
-      { id: 6, name: "Diana Miller", subject: "Math" },
-      { id: 7, name: "Eve Davis", subject: "Science" },
-    ];
+  const mockTeachers = [
+    { id: 1, name: "John Doe", subject: "Math" },
+    { id: 2, name: "Jane Smith", subject: "Science" },
+    { id: 3, name: "Alice Johnson", subject: "English" },
+    { id: 4, name: "Bob Williams", subject: "History" },
+    { id: 5, name: "Charlie Brown", subject: "Computer Science" },
+    { id: 6, name: "Diana Miller", subject: "Math" },
+    { id: 7, name: "Eve Davis", subject: "Science" },
+  ];
 
+  const handleSearch = () => {
     let results = mockTeachers;
 
     if (searchTerm) {
@@ -107,8 +107,13 @@ export default function SearchPage() {
           </h2>
           <ul>
             {teachers.map((teacher) => (
-              <li key={teacher.id} className="text-foreground">
-                {teacher.name} - {teacher.subject}
+              <li key={teacher.id} className="text-foreground flex items-center justify-between py-2 border-b">
+                <span>
+                  {teacher.name} - {teacher.subject}
+                </span>
+                <Button variant="outline" size="sm">
+                  Connect
+                </Button>
               </li>
             ))}
           </ul>
