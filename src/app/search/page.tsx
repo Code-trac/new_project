@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function SearchPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -58,7 +59,7 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-background rounded-lg shadow-md p-8">
+    <div className="flex flex-col items-center justify-center min-h-[70vh] bg-background rounded-lg shadow-md p-8">
       <h1 className="text-2xl font-bold text-foreground mb-4">Search</h1>
       <div className="flex flex-col w-full max-w-md space-y-2">
         <Input
@@ -73,14 +74,16 @@ export default function SearchPage() {
           <Label>Select Subjects:</Label>
           <div className="flex flex-wrap gap-2 mt-2">
             {subjects.map((subject) => (
-              <Button
+              <label
                 key={subject}
-                variant={selectedSubjects.includes(subject) ? "default" : "outline"}
-                onClick={() => handleSubjectChange(subject)}
-                className="rounded-full"
+                className="flex items-center space-x-2 cursor-pointer"
               >
-                {subject}
-              </Button>
+                <Checkbox
+                  checked={selectedSubjects.includes(subject)}
+                  onCheckedChange={() => handleSubjectChange(subject)}
+                />
+                <span>{subject}</span>
+              </label>
             ))}
           </div>
         </div>
