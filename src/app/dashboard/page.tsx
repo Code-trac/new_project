@@ -129,12 +129,17 @@ export default function DashboardPage() {
             </div>
           )}
         </CardContent>
-             <Button
-            onClick={handleLogout}
-            className="bg-destructive text-accent-foreground shadow-md rounded-md hover:bg-accent/80"
-          >
-            Log Out
-          </Button>
+             
+           
+            <div className="flex justify-center">
+                <Button
+                    onClick={handleLogout}
+                    className="bg-destructive text-accent-foreground shadow-md rounded-md hover:bg-accent/80"
+                >
+                    Log Out
+                </Button>
+            </div>
+       
       </Card>
     </div>
   );
