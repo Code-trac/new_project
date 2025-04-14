@@ -12,23 +12,35 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function SearchPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
   const [teachers, setTeachers] = useState([]);
   const [notFound, setNotFound] = useState(false);
+  const [selectedTeacherEmail, setSelectedTeacherEmail] = useState<string | null>(null);
 
   const subjects = ["Math", "Science", "English", "History", "Computer Science"];
 
   const mockTeachers = [
-    { id: 1, name: "John Doe", subject: "Math" },
-    { id: 2, name: "Jane Smith", subject: "Science" },
-    { id: 3, name: "Alice Johnson", subject: "English" },
-    { id: 4, name: "Bob Williams", subject: "History" },
-    { id: 5, name: "Charlie Brown", subject: "Computer Science" },
-    { id: 6, name: "Diana Miller", subject: "Math" },
-    { id: 7, name: "Eve Davis", subject: "Science" },
+    { id: 1, name: "John Doe", subject: "Math", email: "john.doe@example.com" },
+    { id: 2, name: "Jane Smith", subject: "Science", email: "jane.smith@example.com" },
+    { id: 3, name: "Alice Johnson", subject: "English", email: "alice.johnson@example.com" },
+    { id: 4, name: "Bob Williams", subject: "History", email: "bob.williams@example.com" },
+    { id: 5, name: "Charlie Brown", subject: "Computer Science", email: "charlie.brown@example.com" },
+    { id: 6, name: "Diana Miller", subject: "Math", email: "diana.miller@example.com" },
+    { id: 7, name: "Eve Davis", subject: "Science", email: "eve.davis@example.com" },
   ];
 
   const handleSearch = () => {
@@ -56,6 +68,14 @@ export default function SearchPage() {
         ? prev.filter((s) => s !== subject)
         : [...prev, subject]
     );
+  };
+
+  const handleConnect = (email: string) => {
+    setSelectedTeacherEmail(email);
+  };
+
+  const closeDialog = () => {
+    setSelectedTeacherEmail(null);
   };
 
   return (
@@ -111,9 +131,28 @@ export default function SearchPage() {
                 <span>
                   {teacher.name} - {teacher.subject}
                 </span>
-                <Button variant="outline" size="sm">
-                  Connect
-                </Button>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="outline" size="sm" onClick={() => handleConnect(teacher.email)}>
+                      Connect
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Connect with {teacher.name}</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Here is the email address of {teacher.name}:
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <div className="mb-4">
+                      <p>Email: {teacher.email}</p>
+                    </div>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel onClick={closeDialog}>Cancel</AlertDialogCancel>
+                      <AlertDialogAction>Okay</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </li>
             ))}
           </ul>
