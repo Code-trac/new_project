@@ -23,14 +23,18 @@ const subjects = ["Math", "Science", "English", "History", "Computer Science"];
 
 export default function DashboardPage() {
   const [username, setUsername] = useState<string | null>(null);
+  const [fullName, setFullName] = useState<string | null>(null);
   const [interests, setInterests] = useState<string[]>([]);
   const [newInterest, setNewInterest] = useState("");
 
   useEffect(() => {
-    // Retrieve username from local storage on component mount
-    const storedUsername = localStorage.getItem("username");
-    if (storedUsername) {
-      setUsername(storedUsername);
+    // Retrieve user data from local storage on component mount
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      setUsername(userData.username);
+      setFullName(userData.fullName);
+      setInterests(userData.selectedSubjects);
     }
   }, []);
 
@@ -51,7 +55,7 @@ export default function DashboardPage() {
         <CardHeader>
           <CardTitle className="text-2xl">User Dashboard</CardTitle>
           <CardDescription className="text-muted-foreground">
-            Welcome, {username}! This is your profile.
+            Welcome, {fullName || username}! This is your profile.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">

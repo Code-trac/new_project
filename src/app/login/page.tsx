@@ -10,26 +10,68 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { Checkbox } from "@/components/ui/checkbox";
+
+const codingSubjects = [
+  "JavaScript",
+  "Python",
+  "Java",
+  "C++",
+  "C#",
+  "TypeScript",
+  "React",
+  "Node.js",
+  "Angular",
+  "Vue.js",
+  "HTML/CSS",
+  "Data Structures",
+  "Algorithms",
+  "Databases",
+  "Cloud Computing",
+];
 
 export default function LoginPage() {
-  const [role, setRole] = useState("");
-  const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
+  const router = useRouter();
 
   const handleLogin = () => {
-    // Implement your login logic here
-    // For now, just navigate to the dashboard
-    if (email && password && role) {
-      // Store username in local storage
-      localStorage.setItem("username", email.split('@')[0]);
-      router.push('/dashboard');
+    if (fullName && username && password && role && selectedSubjects.length > 0) {
+      // Store user data in local storage
+      const userData = {
+        fullName,
+        username,
+        password, // Note: Storing passwords in local storage is insecure. Use proper authentication in a real app.
+        role,
+        selectedSubjects,
+      };
+      localStorage.setItem("userData", JSON.stringify(userData));
+      localStorage.setItem("username", username); // Store username separately for Navbar
+
+      router.push("/dashboard");
     } else {
-      alert('Please fill in all fields.');
+      alert("Please fill in all fields and select at least one area of interest.");
     }
+  };
+
+  const handleSubjectChange = (subject: string) => {
+    setSelectedSubjects((prev) =>
+      prev.includes(subject)
+        ? prev.filter((s) => s !== subject)
+        : [...prev, subject]
+    );
   };
 
   return (
@@ -43,13 +85,24 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="fullName">Full Name</Label>
             <Input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              id="fullName"
+              placeholder="Enter your full name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              className="shadow-sm rounded-md"
+            />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              type="text"
+              id="username"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="shadow-sm rounded-md"
             />
           </div>
@@ -76,10 +129,31 @@ export default function LoginPage() {
               </SelectContent>
             </Select>
           </div>
-          <Button onClick={handleLogin} className="bg-accent text-accent-foreground shadow-md rounded-md hover:bg-accent/80">Log In</Button>
+          <div>
+            <Label>Areas of Interest:</Label>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {codingSubjects.map((subject) => (
+                <label
+                  key={subject}
+                  className="flex items-center space-x-2 cursor-pointer"
+                >
+                  <Checkbox
+                    checked={selectedSubjects.includes(subject)}
+                    onCheckedChange={() => handleSubjectChange(subject)}
+                  />
+                  <span>{subject}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+          <Button
+            onClick={handleLogin}
+            className="bg-accent text-accent-foreground shadow-md rounded-md hover:bg-accent/80"
+          >
+            Log In
+          </Button>
         </CardContent>
       </Card>
     </div>
   );
 }
-
