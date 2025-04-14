@@ -3,8 +3,19 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { HomeIcon, SearchIcon, UserIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Retrieve username from local storage on component mount
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
+
   return (
     <div className="bg-secondary p-4 flex items-center justify-between">
       <div className="flex items-center">
@@ -13,12 +24,21 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="flex items-center space-x-4">
-        <Link href="/login">
-          <Button variant="outline">
-            <UserIcon className="mr-2 h-4 w-4" />
-            Login
-          </Button>
-        </Link>
+        {username ? (
+          <Link href="/dashboard">
+            <Button variant="outline">
+              <UserIcon className="mr-2 h-4 w-4" />
+              {username}
+            </Button>
+          </Link>
+        ) : (
+          <Link href="/login">
+            <Button variant="outline">
+              <UserIcon className="mr-2 h-4 w-4" />
+              Login
+            </Button>
+          </Link>
+        )}
         <Link href="/search">
           <Button className="bg-accent text-accent-foreground hover:bg-accent/80">
             <SearchIcon className="mr-2 h-4 w-4" />

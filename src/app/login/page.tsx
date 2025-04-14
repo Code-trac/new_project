@@ -24,10 +24,12 @@ export default function LoginPage() {
     // Implement your login logic here
     // For now, just navigate to the dashboard
     if (email && password && role) {
-          router.push('/dashboard');
-      } else {
-          alert('Please fill in all fields.');
-      }
+      // Store username in local storage
+      localStorage.setItem("username", email.split('@')[0]);
+      router.push('/dashboard');
+    } else {
+      alert('Please fill in all fields.');
+    }
   };
 
   return (
@@ -80,3 +82,4 @@ export default function LoginPage() {
     </div>
   );
 }
+
