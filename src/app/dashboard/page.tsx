@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const subjects = ["Math", "Science", "English", "History", "Computer Science"];
 
@@ -28,6 +29,7 @@ export default function DashboardPage() {
   const [newInterest, setNewInterest] = useState("");
   const [role, setRole] = useState<string | null>(null);
   const [ratings, setRatings] = useState<number>(0);
+    const router = useRouter();
 
   useEffect(() => {
     // Retrieve user data from local storage on component mount
@@ -50,6 +52,12 @@ export default function DashboardPage() {
 
   const removeInterest = (interestToRemove: string) => {
     setInterests(interests.filter((interest) => interest !== interestToRemove));
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userData");
+    localStorage.removeItem("username");
+    router.push("/login");
   };
 
   return (
@@ -121,6 +129,12 @@ export default function DashboardPage() {
             </div>
           )}
         </CardContent>
+             <Button
+            onClick={handleLogout}
+            className="bg-destructive text-accent-foreground shadow-md rounded-md hover:bg-accent/80"
+          >
+            Log Out
+          </Button>
       </Card>
     </div>
   );

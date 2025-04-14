@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { HomeIcon, SearchIcon, UserIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [username, setUsername] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     // Retrieve username from local storage on component mount
@@ -15,6 +17,13 @@ export default function Navbar() {
       setUsername(storedUsername);
     }
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("userData");
+    localStorage.removeItem("username");
+    setUsername(null);
+    router.push("/login");
+  };
 
   return (
     <div className="bg-secondary p-4 flex items-center justify-between">
@@ -25,12 +34,12 @@ export default function Navbar() {
       </div>
       <div className="flex items-center space-x-4">
         {username ? (
-          <Link href="/dashboard">
-            <Button variant="outline">
+          <>
+            <Button variant="outline" onClick={handleLogout}>
               <UserIcon className="mr-2 h-4 w-4" />
-              {username}
+              {username} (Logout)
             </Button>
-          </Link>
+          </>
         ) : (
           <Link href="/login">
             <Button variant="outline">
