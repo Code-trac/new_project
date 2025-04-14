@@ -26,6 +26,8 @@ export default function DashboardPage() {
   const [fullName, setFullName] = useState<string | null>(null);
   const [interests, setInterests] = useState<string[]>([]);
   const [newInterest, setNewInterest] = useState("");
+  const [role, setRole] = useState<string | null>(null);
+  const [ratings, setRatings] = useState<number>(0);
 
   useEffect(() => {
     // Retrieve user data from local storage on component mount
@@ -35,6 +37,7 @@ export default function DashboardPage() {
       setUsername(userData.username);
       setFullName(userData.fullName);
       setInterests(userData.selectedSubjects);
+      setRole(userData.role);
     }
   }, []);
 
@@ -109,6 +112,14 @@ export default function DashboardPage() {
               </Button>
             </div>
           </div>
+          {role === "teacher" && (
+            <div>
+              <Label>Ratings:</Label>
+              <div className="mt-2">
+                {ratings}
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
