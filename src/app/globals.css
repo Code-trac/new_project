@@ -21,14 +21,14 @@ body {
     --secondary-foreground: 240 5.9% 10%;
     --muted: 220 14.3% 95.9%;
     --muted-foreground: 220 9% 46.1%;
-    --accent: 160 100% 35%;
+    --accent: 211 56% 56%;  /* Calming blue for positive actions */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 220 13% 91%;
     --input: 220 13% 91%;
     --ring: 214.3 41.4% 46.1%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
